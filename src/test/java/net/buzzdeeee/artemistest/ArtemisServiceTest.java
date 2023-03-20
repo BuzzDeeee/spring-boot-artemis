@@ -1,4 +1,4 @@
-package net.seraph.artemistest;
+package net.buzzdeeee.artemistest;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;

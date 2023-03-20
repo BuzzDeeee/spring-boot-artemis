@@ -1,4 +1,4 @@
-package net.seraph.artemistest;
+package net.buzzdeeee.artemistest;
 
 import jakarta.jms.ConnectionFactory;
 
