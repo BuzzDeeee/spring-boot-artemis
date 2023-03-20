@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class ArtemisService {
 
     public static final String MESSAGE_TEST_ID = "messageTestId";
-    public static final String MESSAGE_TEST_ADDRESS = "messageTest?last-value=true&last-value-key=" + MESSAGE_TEST_ID;
+    public static final String MESSAGE_TEST_ADDRESS = "messageTest?last-value-key=" + MESSAGE_TEST_ID;
     public static final ActiveMQTopic MESSAGE_TEST_TOPIC = new ActiveMQTopic(MESSAGE_TEST_ADDRESS);
     public static final String MESSAGE_TEST_QUEUE = "messageTest";
 
