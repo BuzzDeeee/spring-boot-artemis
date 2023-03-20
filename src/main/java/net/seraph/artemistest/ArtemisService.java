@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.core.MessageCreator;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
@@ -30,10 +29,16 @@ public class ArtemisService {
         this.logger = logger;
     }
 
+    public void sendMessage(String message) {
+        sendMessage(message, null);
+    }
+
 
     public void sendMessage(String message, Instant deliveryTime) {
         jmsTemplate.convertAndSend(MESSAGE_TEST_TOPIC, message, msg -> {
-                    msg.setJMSDeliveryTime(deliveryTime.toEpochMilli());
+                    if (deliveryTime != null) {
+                        msg.setJMSDeliveryTime(deliveryTime.toEpochMilli());
+                    }
                     msg.setStringProperty(MESSAGE_TEST_ID, "1");
                     return msg;
                 }
@@ -42,9 +47,9 @@ public class ArtemisService {
 
 
     @JmsListener(destination = MESSAGE_TEST_ADDRESS, containerFactory = "myFactory", subscription = MESSAGE_TEST_QUEUE)
-    public void receiveMessage(Message message) {
+    public void receiveMessage(Message<String> message) {
 
-        System.out.println("Received <headers=" + message.getHeaders() + " message=" + message + ">");
+        System.out.println("Received <headers=" + message.getHeaders() + " payLoad=" + message.getPayload() + ">");
         logger.debug("foo");
     }
 }
